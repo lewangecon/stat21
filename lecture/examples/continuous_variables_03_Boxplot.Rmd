@@ -1,0 +1,56 @@
+---
+title: "Boxplot"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook that illustrates how to plot box plots to get a complete view of the distribtion in one graph. 
+
+Lets work on an artificial data
+
+```{r}
+set.seed(123456)
+box.data <-rnorm(100)
+box.data
+```
+
+Take a look at the distribution of the variable
+```{r}
+summary(box.data)
+```
+
+
+We an plot all the information
+
+```{r}
+boxplot(box.data)
+```
+
+
+1. The **top** and **bottom** lines of the rectangle are the **3rd** and **1st quartiles** (Q3 and Q1), respectively.  The length of the rectangle is the IQR.
+2. The line in the middle of the rectangle is the **median**.
+3. The top whisker denotes the maximum value or the 3rd quartile plus 1.5 times the interquartile range (Q3 + 1.5*IQR), whichever is smaller.
+4. The bottom whisker denotes either the minimum value or the 1st quartile minus 1.5 times the interquartile range (Q1 - 1.5*IQR), whichever is larger.
+
+
+```{r}
+data <- data.frame(x = 1, y = box.data)
+
+ggplot(data, aes(x = x, y = y)) +
+  geom_boxplot() +
+  xlim(c(0,2))
+```
+
+
+If you have a dataset, you can also use the following trick
+
+```{r}
+ggplot(data = diamonds) +
+  geom_boxplot(mapping = aes(x = 1, y = depth))
+```
+
+
+
+
+
+
+

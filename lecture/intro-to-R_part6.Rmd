@@ -1,0 +1,63 @@
+---
+title: "Tutorials on R and R Studio (Part VI)"
+subtitle: "Introduction to R Markdown"
+author: "Le Wang"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# What is R Markdown?
+
+According to RStudio,
+
+> "R Markdown is a format that enables easy authoring of reproducible web reports from R. It combines the core syntax of Markdown (an easy-to-write plain text format for web content) with embedded R code chunks that are run so their output can be included in the final document".
+
+---
+
+You can watch the video explaining in more detail what it is [here](https://rmarkdown.rstudio.com/lesson-1.html)
+
+
+# Why is R Markdown useful?
+
+**Traditional way**: Save your analysis from any statistical software, tables or figures. Then copy and paste them into your report.
+
+\bigskip
+
+**Why is this not good?**
+
+Imagine that your client tell you that they do not want full-sample analysis, instead, they want a sub-sample analysis. Then you have to re-do everything and comb through the whole report to make sure that everything is updated!
+
+----
+
+1. R Markdown is **dynamic**.
+2. Results are **reproducible** with R Markdown. Everyone having your report could see the results as well as the code producing them. 
+
+\bigskip
+
+The idea should be simple enough: 
+1. interweave narratives with code in a document, 
+2. knit the document to dynamically generate results from the code, 
+3. and you will get a report. 
+
+This idea was not invented by R Markdown, but came from an early programming paradigm called **Literate Programming** (Knuth 1984).
+
+# Where has R Markdown been used?
+
+[Xie et al. 2018 R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/):
+
+Due to the simplicity of Markdown and the powerful R language for data analysis, R Markdown has been widely used in many areas. <https://bookdown.org/yihui/rmarkdown/basics-examples.html>
+
+1. Airbnb's knowledge repository
+2. 2017 Employer Health Benefits Survey
+3. Journal articles
+4. My slides!
+5. etc...
+
+
+# Example
+
+Now let's look at an [example](examples/intro-to-R-markdown-example.Rmd)
+

@@ -1,0 +1,96 @@
+---
+title: "Program Kernel Density Estimation in `R`"
+author: "Le Wang"
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+As we discussed in class, we can estimate the density function using following formula:
+
+$$
+\widehat{f}(x)=\frac{1}{N h} \sum \underbrace{\frac{1}{2} \cdot \mathbb{I}\left[\frac{X_{i}-x}{h} | \leq 1\right]}_{k\left(\frac{x_{i}-x_{i}}{h}\right)}
+$$
+
+
+This program illustrates how we can program in `R` this naive kernel density estimation approach with rectangular kernel and a pre-specified bandwidth. 
+
+Let's generate some artificial Data for our analysis
+
+```{r}
+set.seed(123456)
+X <- rnorm(10)
+```
+
+Specify the $x$ value that we would like to calculate the density for
+
+$$
+\widehat{f}(1)=\frac{1}{N h} \sum \underbrace{\frac{1}{2} \cdot \mathbb{I}\left[\mid \frac{X_{i}-1}{h} \mid \leq 1\right]}_{k\left(\frac{X_{i}-1} {h}\right)}
+$$
+
+```{r}
+x <- 1
+```
+
+Let's also specify the bandwidht
+
+```{r}
+h <- 0.5
+```
+
+
+Then the formula becomes
+$$
+\widehat{f}(1)=\frac{1}{10 \times 0.5} \sum \underbrace{\frac{1}{2} \cdot \mathbb{I}\left[\mid \frac{X_{i}-1}{0.5} \mid \leq 1\right]}_{k\left(\frac{X_{i}-1} {0.5}\right)}
+$$
+
+
+# Calculate the distance between every data point and x
+# and normalize the distance
+
+```{r}
+(X - x)/h
+```
+
+# Assign one to the data points falling in the interval
+
+```{r}
+k <- ifelse(abs((X-x)/h)<=1, 1, 0)
+k
+```
+
+
+# Use the formulae to obtain kernel density estimate
+
+
+
+```{r}
+N <- length(X)
+1/(N*h)*sum(1/2*k)
+```
+
+
+# This is optional. We will talk more about how to write a function later
+# We can also write a function so that we can calculate this for many different values
+
+```{r}
+kpdf <- function(x, data, h){
+  
+  N <- length(data)
+  k <- ifelse(abs((data-x)/h)<=1, 1, 0)
+  
+  return(1/(N*h)*sum(1/2*k))
+  
+}
+```
+
+
+```{r}
+sapply(seq(-1,1,0.01), kpdf, data=X, h = h)
+```
+
+
+

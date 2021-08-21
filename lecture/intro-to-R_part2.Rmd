@@ -1,0 +1,182 @@
+---
+title: "Tutorial on R and R Studio (Part II)"
+author: "Le Wang"
+output:
+  html_document:
+    number_sections: true
+    toc: true
+    toc_depth: 3    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In class, you can download this set of code [here](intro-to-R_part2.R)
+
+# Some Tips on Programming Styles
+
+1. Comments
+2. Half window rule
+3. Indent (and indent again!)
+4. Block and vertical spacing
+
+
+---
+
+R Studio follows [Style Guide by Wickham based on Google `R` style guide](adv-r.had.co.nz/Style.html) and automatically reminds you whether you are following it. 
+
+See [DataCamp Course: Working with the RStudio IDE (Part1): Code Diagnostics](https://campus.datacamp.com/courses/working-with-the-rstudio-ide-part-1/programming?ex=3)
+
+## Comments
+
+Whenever possible, use comments! Anything following the symbol `#` will not be run in R. Comments are notes we leave ourselves so we know: 
+
+  - Exactly who wrote the code (important in companies where many people may work on a project) 
+  - The purpose of the code!
+
+For example, below is the type of comments that I always include in my programs
+```
+# Project: Tutorial on R and R Studio (Part II)
+# Author:  Le Wang
+
+# This program illustrates some basic programming philosophy
+# and R operations
+```
+
+You can also understand the following code without even knowing what exactly each line of command does because I tell you what they are!
+
+```
+# Set seed number so that all the results based on random samples 
+# are reproducible.
+  set.seed(12345)
+
+# Then create a normally distributed random variable, x, with 500 
+# observations.
+  x <- rnorm(500)
+
+  # Notice "<-" is the universal assignment operator in R
+```
+
+## Quiz 1 (-cont.-) 
+  
+Use the previous script and write the following comments
+  
+  1. The project
+  2. The author
+  3. The purpose of this program    
+  
+# R Basics
+
+## Arithmetic 
+
+```{r}
+  #add numbers
+  1 + 1
+
+  #subtract them
+  8 - 4
+
+  #divide
+  13/2
+
+  #multiply
+  4*pi
+
+  #exponentiate
+  2^10   
+
+```
+
+  
+### Quiz 1 -cont.-
+  
+Compute the difference between 2018 and the year you started at this university and divide this by the difference between 2018 and the year you were born. Multiply this with 100 to get the percentage of your life you have spent at this university. Use brackets if you need them.  
+
+
+## Logical Comparison
+
+
+```{r}
+  3 < 4
+  3 > 4
+
+  #contrast with 3 = 4; see section about variables below
+  3 == 4
+  3 != 4
+  
+  10 - 6 == 4
+  
+  # Notice the difference between single and double equal signs
+```
+
+
+## Strings (text)
+
+```{r}
+  #R delimits strings with EITHER double or single quotes.
+  #  There is only a very minimal difference
+  
+  'Econometrics is awesome'  
+  "Econometrics is still awesome"  
+```
+
+
+
+## Variables
+
+You can think of a variable as a *cup*. Assignment to a variable happens from right to left - the value on the right side gets assigned to the name on the left side. You can use nearly anything as a variable name in R. The only rules are:
+    
+    1. "." and "_" are OK, but no other symbols.
+    2. Your variable name must not start with a number or _ (2squared and  _one are illegal).  
+  
+A note for those of you who have programming experience: while R supports object-oriented programming, periods "." do not have a special meaning in the language. For historical reasons, R programmers often use periods in place of underscores in variable names, but either works. Just be consistent to keep your code readable.
+
+
+
+```{r}
+    x <- 42
+    x / 2
+    
+    x = 42
+    
+    # redefine x
+    x <- x + 3
+    x
+    
+    #if we assign something else to x,
+    #  the old value is deleted        
+    x <- "Melody to Funkytown!"
+    x
+    
+    
+    foo <- 3
+    bar <- 5
+    foo.bar <- foo + bar
+    foo.bar
+```
+
+To remove all variables in memory:
+
+```{r}
+    rm(list=ls())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

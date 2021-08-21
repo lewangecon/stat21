@@ -1,0 +1,87 @@
+---
+title: "What is a large or unlikely number, Statistically speaking? and Quiz 10"
+output: html_notebook
+---
+
+
+How do we know if 2 is a large value?
+
+  1. **Large**, say, is defined as a value greater than **top 5 percent** (or $95^{th}$) of the distribution
+  
+# Positive Distributions
+
+## Approach 1: Pre-specified large value
+  
+**Examples: Drawn from a $\chi^2_4$ distribution**
+
+```{r}
+qchisq(.95, 4)
+```
+
+**Exercise**
+
+1. What if we change our definition of large to the top 50 percent of the distribution?
+  
+```{r}
+
+```
+  
+2. What if we change our value from 2 to 10? And define the large as the top 1 percent of the distribution
+  
+```{r}
+
+```
+
+  
+**Examples: Drawn from a $F_{1,15}$ distribution**
+
+```{r}
+qf(.95, 1, 15)
+```
+
+
+**Exercise**
+
+1. What if we change our value from 2 to 5? And define the large as the top 1 percent of the distribution
+  
+```{r}
+
+```
+
+
+## Approach 2: Percentage of Larger values than the observed one.
+
+**Examples: Drawn from a $\chi^2_4$ distribution**
+
+
+```{r}
+1-pchisq(2,4)
+```
+
+There are `r 1-pchisq(2,4)*100` percent of the values greater than 2. Not large! 
+
+
+# General Distributions
+
+## Standard Normal Distribution
+
+### Approach 1
+
+```{r}
+qnorm(.975)
+qnorm(.025)
+```
+
+### Approach 2
+```{r}
+pnorm(-2)*2
+```
+
+**Exercise**
+
+1. What if we change our value from 2 to 5? And define the large as the top 1 percent of the distribution. 
+
+```{r}
+
+```
+

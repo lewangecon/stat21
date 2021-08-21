@@ -1,0 +1,166 @@
+---
+title: "Tutorials on R and R Studio (Part V)"
+author: "Le Wang"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In class, you can download this set of code [here](intro-to-R_part5.R). You should also check out Chapter 11 of R for Data Science
+
+# Read Data
+
+## Type 1: Text files
+
+Data sometimes come with headers (the first row is variable names, not actual data!) You need to tell R that!
+ 
+```{r}
+  kids<-read.table("examples/Kids.txt",header=T)
+```
+  
+Double click the kids data in the Session "Environment", you can have a spread-sheet type of view of the data. Let's call a variable in the data
+  
+```{r}
+  kids$Bday
+```
+  
+
+Remember that the `$` operator is one way to access an individual variable from within a data.frame object.
+
+```{r}
+attach(kids)
+kids
+```
+
+  
+## Type 2: CSV files
+```{r}
+  kids2<-read.csv("examples/Kids2.csv",header=T)
+  attach(kids2)
+  kids2
+```
+
+  
+## Type 3: Delimited files  
+```{r}
+  kids3<-read.delim("examples/Kids3.prn",header=T)
+  attach(kids3)
+  kids3
+```
+
+  
+  
+## Type 4: Stata files
+
+```{r}
+  library(haven)
+  major <- read_dta("examples/major.dta")      
+```
+  
+## Tidyverse 
+
+```{r}
+  kids4<-read_csv("examples/Kids2.csv")
+  attach(kids4)
+  kids4
+```
+
+```{r}
+read_csv("The first line of metadata
+  The second line of metadata
+  x,y,z
+  1,2,3", skip = 2)
+```
+
+```{r}
+read_csv("# A comment I want to skip
+  x,y,z
+  1,2,3", comment = "#")
+```
+
+
+
+  
+# Output Data
+
+Create a matrix of data values. This 2 by 3 matrix is called "major"  
+
+```{r}
+  major<-matrix(c(632,576,435,520,623,397),nrow=2,byrow=T)
+  major
+```
+  
+Let's give names to these columns (treated as variables)
+
+```{r}
+  colnames(major)<-c("Sciences","Liberal Arts","Business")
+# row names
+  rownames(major)<-c("Male","Female")
+# Let's look at the data again
+  major  
+```
+
+
+Save the data in working directory in case you want to use this data again
+```{r}
+  write.table(major, file="examples/major.txt",row.names=FALSE)
+
+```
+
+Save To A Tab Delimited Text File
+```{r}
+  write.table(major, file="examples/major.txt",row.names=FALSE,sep="\t")
+
+```
+
+Or, Save to a Stata file and export data frame to Stata binary format 
+
+```{r}
+ library(haven)
+  write_dta(major, "examples/major.dta") 
+```
+
+# Quantmod package from Yahoo
+
+```{r}
+  # Install Quantmod package if you have not done so
+  install.packages("quantmod")
+  
+  # Load the library
+  library("quantmod")
+  
+  # Obtain the information on price and volume for Walmart
+  getSymbols('WMT')
+
+  # Take a look at the data (first six rows/dates)
+  head(WMT)
+  
+  # Let's plot all the price data and add some indicators such as
+  # volumes (addVo()) and Bollinger Bands (addBBands())
+  chartSeries(WMT, subset='2010::2010-04', 
+              theme = chartTheme('white'),
+              TA="addVo();addBBands()")    
+  
+  # Use the built-in command to generate daily returns
+  # We will explain in more detail why this is not necessarily
+  # the best practice. 
+  
+  ret2 <- dailyReturn(WMT$WMT.Adjusted)
+  # Examine the data
+  View(ret2)
+  
+  # Suppose that we are only interested in a subset of the data
+  # We will explain in detail why this should be employed in practice
+  
+  # Note that the date variable is not in my dataset, how to obtain
+  # it? Use index()!
+  
+  WMT.2011<-subset(ret2,index(ret2) >="2011-01-01" & index(ret2) <="2011-12-31")
+```
+
+
+  
+  
+  

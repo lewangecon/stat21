@@ -1,0 +1,133 @@
+---
+title: "Hypothesis Testing: Stock Analysis using R"
+output: html_notebook
+---
+
+
+```{r}
+library(quantmod)
+
+# Obtain data
+getSymbols(c('AAPL','GOOGL'), warnings = FALSE)
+
+# Calculate returns
+ret.AAPL <- diff(AAPL$AAPL.Adjusted)/lag(AAPL$AAPL.Adjusted)
+ret.GOOGL <- diff(GOOGL$GOOGL.Adjusted)/lag(GOOGL$GOOGL.Adjusted)
+
+# Omit missing observations
+ret.AAPL <- na.omit(ret.AAPL)
+ret.GOOGL <- na.omit(ret.GOOGL)
+
+# Plot the time series
+plot(ret.AAPL)
+plot(ret.GOOGL)
+```
+
+## Does any of these stocks actually offer a real investment opportunity on average?
+
+```{r}
+mean(ret.AAPL)
+```
+
+```{r}
+t<-
+t
+```
+
+
+```{r}
+
+```
+
+Compare it to the built-in command in R
+
+```{r}
+t.test(ret.AAPL,mu=0)
+```
+
+## Do these two stocks have equal risks?
+
+Test statistic:
+
+$$
+\frac{\widehat{\sigma}_x}{\widehat{\sigma}_y} \sim F_{N_1-1, N_2-1}
+$$
+
+1. Calculate the test statistic:
+
+```{r}
+var.x <- 
+var.y <- 
+
+# We will use the higher risk in the numerator
+F<- 
+F
+```
+
+2. Calculate the p-value
+
+$$
+\Pr[X \geq F]
+$$
+
+```{r}
+# Lets calculate the degrees of freedom
+N11 <- 
+N21 <- 
+N11
+N21
+
+# P-value
+
+```
+
+
+3. Lets verify our results using the built-in command
+
+```{r}
+var.test(ret.AAPL, ret.GOOGL, alternative = "greater")
+```
+
+4. What is your conclusion?
+
+**Answer:**
+
+
+## Is this stock normally distributed?
+
+Jarque-Bera (JB) Test of Normality
+
+$$
+  \frac{(\widehat{s}-0)^2}{6/N} + \frac{(\widehat{k}-3)^2}{24/N} \sim \chi^2_2
+$$
+
+
+```{r}
+library(moments)
+s<-
+k<-
+s
+k
+```
+
+
+Lets construct the test-statistic ourselves
+
+```{r}
+JBtest <- 
+
+JBtest
+```
+
+
+Lets calculate the p-value
+
+```{r}
+
+```
+
+
+```{r}
+library(tseries)
+jarque.bera.test(ret.AAPL)
+```

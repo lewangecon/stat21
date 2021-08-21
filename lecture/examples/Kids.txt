@@ -1,0 +1,6 @@
+Name	Bday	Sex
+Rusty	19-Aug	Male
+Rosie	8-Oct	Female
+Sonny	12-Dec	Male
+Claudia	24-Mar	Female
+Bailey	6-Mar	Male

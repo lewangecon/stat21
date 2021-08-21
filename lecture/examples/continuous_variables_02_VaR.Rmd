@@ -1,0 +1,103 @@
+---
+title: "Value at Risk (VaR): A worked Example"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook that illustrates how to calculate Value at Risk (VaR), an important statistic for financial risk management. 
+
+## Basics
+
+Lets download the data first
+
+```{r}
+library("quantmod")
+
+# Download Walmart stock data from Yahoo
+getSymbols('WMT')
+
+# Take a look at the data (first six rows/dates)
+head(WMT)  
+```
+
+We are not interested in the prices itself. Instead, we are interested in **returns to stocks**
+
+```{r}
+# Calculate Daily Return
+# return = log(S[i]/S[i-1])
+
+#ret <- diff(log(WMT$WMT.Adjusted))
+ret <- diff(WMT$WMT.Adjusted)/lag(WMT$WMT.Adjusted)
+head(ret)
+
+ret2 <- dailyReturn(WMT$WMT.Adjusted)
+head(ret2)
+```
+
+From now on, I would like to focus on the daily returns, `ret`, that I construct. Let's look at the VaR for daily returns
+
+```{r}
+z <- c(0:15)/100
+plot(density(ret,na.rm = TRUE))
+abline(v=quantile(ret,0.05, type = 1,na.rm=TRUE),col="red",lty=1)
+```
+
+We can calculate the quantile of the distribution of the returns to this stock, i.e., (VaR for **daily returns**)
+
+```{r}
+quantile(ret,0.05, type = 1,na.rm=TRUE)
+```
+
+
+Let's set parameters $\alpha$ and the amount of investment value $V$
+
+```{r}
+V = 1000
+alpha<-0.05
+```
+
+
+Calculate the VaR for any specified $\alpha$. 
+
+```{r}
+quantile(ret,alpha, type = 1,na.rm=TRUE)
+```
+
+Then, the VaR for the **amount of investment**, $V$ is 
+
+```{r}
+V*quantile(ret,alpha, type = 1,na.rm=TRUE)
+```
+
+**Interpretation:** there is a 5\% chance that we will lose **more than** `r V*quantile(ret,0.05, type = 1,na.rm=TRUE)` on our 1000 dollar investment in the next day.
+
+## Extensions
+
+### Subsets
+
+Lets say that we would like to consider only a specific time period for our anlaysis. 
+
+```{r}
+WMT.2011<-subset(ret2,index(ret2) >="2011-01-01" & index(ret2) <="2011-12-31")
+head(WMT.2011)
+tail(WMT.2011)
+
+
+V*quantile(WMT.2011,alpha, type = 1,na.rm=TRUE)
+```
+
+### Different horizons
+
+In industry, people also use the Square Root of $T$ rule to scale 1-day VaR to a $T-day$ VaR. For example, 7 day VaR would be:
+
+```{r}
+days <- 7
+sqrt(days)*V*quantile(ret,alpha, type = 1,na.rm=TRUE)
+```
+
+
+Or, one-month VaR would be
+
+```{r}
+days <- 30
+sqrt(days)*V*quantile(ret,alpha, type = 1,na.rm=TRUE)
+```

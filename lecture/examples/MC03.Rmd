@@ -1,0 +1,49 @@
+---
+title: "Monte Carlo Simualation: Uniform Distribution and Numerical Integration"
+output: html_notebook
+---
+
+$$
+  \int^1_0 x^3 dx = \frac{1}{4}=.25
+$$
+
+We know this problem can be converted to a statistical one
+
+$$
+  \int^1_0 x^3 dx =  \int^1_0 x^3 \cdot 1 dx = \mathbb{E}[x^3], \quad x \sim U(0,1)
+$$
+
+
+Lets simulate a dataset of 10 observations to solve this problem
+
+```{r}
+# Set seed number to ensure reproducibility
+set.seed(123456)
+
+# Generate a set of random values drawn from the standard uniform distributioin
+x<- runif(10)
+
+# Generate function values
+gx <- x^3
+
+# Calculate sample means of the function values
+mean(gx)
+```
+
+Lets increase the sample size
+
+```{r}
+# Set seed number to ensure reproducibility
+set.seed(123456)
+
+# Generate a set of random values drawn from the standard uniform distributioin
+x<- runif(100000)
+
+# Generate function values
+gx <- x^3
+
+# Calculate sample means of the function values
+mean(gx)
+```
+
+  

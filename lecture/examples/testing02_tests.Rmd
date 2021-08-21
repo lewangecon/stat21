@@ -1,0 +1,143 @@
+---
+title: "Hypothesis Testing: Various Examples"
+output: html_notebook
+---
+
+
+## Test of Normality
+
+Jarque-Bera (JB) Test of Normality
+
+$$
+  \frac{(\widehat{s}-0)^2}{6/N} + \frac{(\widehat{k}-3)^2}{24/N} \sim \chi^2_2
+$$
+
+Lets simulate some data to test whether or not our statistic works
+
+```{r}
+set.seed(123456)
+x<-rnorm(1000)
+x
+```
+
+Lets look calculate each component first
+```{r}
+library(moments)
+s<-skewness(x)
+k<-kurtosis(x)
+s
+k
+```
+
+
+Lets construct the test-statistic ourselves
+
+```{r}
+JBtest <- s^2/(6/1000) + (k-3)^2/(24/1000)
+
+JBtest
+```
+
+
+Lets calculate the p-value
+
+```{r}
+1-pchisq(JBtest,df=2)
+```
+
+**Our interpretation:** There are 40.87048 percent of the values greater than the JB test statistic. Our test statistic is relatively small. Devitation is small, and we cannot reject the null hypothesis. 
+
+Lets compare it to `R`'s built-in commmand:
+
+```{r}
+library(tseries)
+jarque.bera.test(x)
+```
+
+
+# Test of Sample Mean
+
+$$
+\frac{(\overline{X}-\mu)}{\frac{\widehat{\sigma}}{\sqrt{N}}} \sim t_{N-1}
+$$
+
+Lets test whether or not it is equal to 0, which we know is true.
+
+```{r}
+t<-(mean(x)-0)/(sd(x)/sqrt(1000))
+t
+```
+
+Lets compare it to a large value, be it negative or positive
+
+```{r}
+qt(.025, df=999)
+qt(.975, df=999)
+```
+
+Let's calculate the p-value
+
+```{r}
+pt(-abs(t),df = 999)*2
+```
+
+Compare it to the built-in command in R
+
+```{r}
+t.test(x,mu=0)
+```
+
+Now lets test whether or not it is equal to 2, which we know is false
+
+```{r}
+t<-(mean(x)-2)/(sd(x)/sqrt(1000))
+t
+```
+
+
+```{r}
+qt(.025, df=999)
+qt(.975, df=999)
+```
+
+```{r}
+pt(-abs(t),df = 999)*2
+```
+
+
+
+
+## Test of Equal Variance
+
+Lets simulate the data
+
+```{r}
+set.seed(123456)
+x <- rnorm(50, mean = 0, sd = 1)
+y <- rnorm(30, mean = 1, sd = 1)
+
+```
+
+Calculate the test statistic
+```{r}
+# Test Statistic
+F<- var(x)/var(y)
+
+```
+
+
+
+Calculate p-value yourself
+```{r}
+1-pf(F,df1=49,df2 = 29)
+```
+
+
+**Conclusion:** p-value is much greater than 5 percent. It is not very extreme. We fail to reject the null hypothesis!
+
+Lets' compare it to `R`'s built-in command for this purpose
+
+```{r}
+var.test(x, y, alternative = "greater")
+```
+

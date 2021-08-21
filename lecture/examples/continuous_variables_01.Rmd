@@ -1,0 +1,117 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook that will walk you through some of the concepts for **continuous variables**.
+
+## Example 1: Unemployment Rates
+
+Our running example is unemployment rates downloaded from the Fed website
+
+```{r}
+  library(quantmod)
+  getSymbols('UNRATE',src='FRED')
+  hist(UNRATE)
+```
+
+We can refine it further
+
+```{r}
+  hist(UNRATE, breaks = seq(1,12,.1), freq = TRUE)
+```
+
+We can also use the tidy approach 
+
+```{r}
+  library(ggplot2)
+  ggplot(data = UNRATE, aes(x=UNRATE)) +
+    geom_histogram(binwidth = 1)
+```
+
+We can change the bandwidth to a smaller one
+
+```{r}
+  library(ggplot2)
+  ggplot(data = UNRATE, aes(x=UNRATE)) +
+    geom_histogram(binwidth = .01)
+```
+
+This is equivalent to using the following command to cut the sample first
+
+```{r}
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+as_tibble(UNRATE) %>% 
+  count(cut_width(UNRATE,.01)) %>% 
+  ggplot(mapping = aes(x = `cut_width(UNRATE, 0.01)` , y = n)) +
+    geom_col()
+```
+
+
+We can use a smoothed version of this
+
+```{r}
+    plot(density(UNRATE, adjust=2), col="darkgreen", lwd=2) 
+```
+
+
+## Example: Simulated Data
+
+Lets perform our analysis of an artifical dataset
+
+```{r}
+x<- rnorm(10000)
+plot(ecdf(x)) 
+plot(density(x)) 
+```
+
+A tidy approach 
+
+```{r}
+  ggplot(data = UNRATE, aes(x=UNRATE)) +
+    geom_density(adjust = 2) 
+    expand_limits(x=c(0,14))
+```
+
+1. bw: The smoothing bandwidth to be used. If numeric, the standard deviation of the smoothing kernel.
+2. adjust: A multiplicate bandwidth adjustment.
+
+
+We can change the the ticks
+
+```{r}
+  ggplot(data = UNRATE, aes(x=UNRATE)) +
+    geom_density(adjust = 2) + 
+    expand_limits(x=c(0,14)) + 
+    scale_x_continuous(breaks=seq(0, 14, 2))
+```
+
+
+## Quantiles
+
+Lets simulate the data
+```{r}
+x<-c(6,7,6,3,10,3,2,1,10,7)
+```
+
+We can calculate the median
+
+```{r}
+median(x)
+```
+
+We calculate the $40^{th}$ percentile
+```{r}
+quantile(x,.4)
+```
+
+But this is really not the type of definition.
+```{r}
+quantile(x,.8, type = 1)
+```
+

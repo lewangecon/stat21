@@ -1,0 +1,55 @@
+---
+title: "Monte Carlo Simulation: Binomial Distribution"
+output: html_notebook
+---
+
+
+
+$$
+f(x) = \binom{n}{x} p^x(1-p)^{(n-x)} \quad \text{where } x = 0,1,2, \dots, n
+$$
+
+1. We can calculate probability for each value
+
+```{r}
+dbinom(4, size=12, prob=0.2) 
+```
+
+2. We can calculate the CDF for, say, 4
+
+```{r}
+dbinom(0, size=12, prob=0.2)+dbinom(1, size=12, prob=0.2)+dbinom(2, size=12, prob=0.2)+dbinom(3, size=12, prob=0.2)+dbinom(4, size=12, prob=0.2) 
+```
+
+or, simply
+
+```{r}
+pbinom(4, size = 12, prob = 0.2)
+```
+
+3. Suppose that we do not even know the formula so that we cannot simply calculate the probability. We can conduct computer random experiments that mimics the situation. 
+
+```{r}
+set.seed(123456)
+
+# One experiment
+  sample <- sample(0:1,12, prob = c(0.8,0.2), replace = TRUE)
+  sum(sample)
+
+# Let's do it for 10000 times  
+# Initiate a vector to store results
+x <- vector('numeric', 50000)
+
+# Create a sample of xs
+for (i in c(1:50000)){
+  sample <- sample(0:1,12, prob = c(0.8,0.2), replace = TRUE)
+  x[i] <- sum(sample)
+}
+
+# Let's compare the characteristic of our simulated sample to the true value.
+sum(x == 4)/length(x)
+
+
+dbinom(4,size = 12, prob = 0.2)
+```
+

@@ -1,0 +1,37 @@
+---
+title: "Monte Carlo Simulation: Visualize the distribution of sample variance"
+output: html_notebook
+---
+
+$$
+\frac{(N-1)\widehat{\sigma}{}^2}{\sigma^2} \sim \chi^2_{N-1}
+$$
+
+
+Set seed to ensure reproducibility
+```{r}
+set.seed(123456)
+```
+
+
+Initiate an object to store simulated values
+
+
+```{r}
+number <- double(0)
+```
+
+
+Use Loops to Simulate 1000 values
+
+```{r}
+for (i in 1:1000){
+  # Draw a random sample from the standard normal (mean 0 and variance 1)
+  sample <- rnorm(100)
+  
+  # Calculate the number using the formula above
+  # And then store it
+  number[i] <- (100-1)*var(sample)/1
+}
+```
+

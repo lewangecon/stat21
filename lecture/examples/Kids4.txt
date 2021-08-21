@@ -1,0 +1,6 @@
+Name	Bday	Sex
+Rusty   08/19/2002 Male
+Rosie   10/08/2002 Female
+Sonny   12/12/2003 Male
+Claudia 03/24/2004 Female
+Bailey  03/06/2006 Male  

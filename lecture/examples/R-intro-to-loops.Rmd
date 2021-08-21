@@ -1,0 +1,250 @@
+---
+title: "Introduction to Loops in `R`"
+author: "Le Wang"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Here we introduce two important programming tools for looped execution: `for` and `while` statements. This is particularly useful for our Monte Carlo simulation exercises, where we need to repeat our analysis many times. Note that `while` statements are more fundamental than `for` statements; the latter can always be re-written to be a `while` statement. 
+
+Lets begin with a simple example to see why we need a `for` loop. Suppose we simply would like `R` to output numbers from $1$ to $100,000$. 
+
+```
+print(1)
+print(2)
+print(3)
+print(4)
+.
+.
+print(100000)
+```
+
+This manual approach is particularly tedious and practically infeasible when the set of numbers needed to be printed is large. But we note that there are some similarities among the code above. Specifically,
+
+```
+print(xx)
+```
+
+It would be great if we can ask `R` to automatically fill in these numbers for us because we know how to generate those numbers easily in `R`
+
+```{r}
+x <- seq(1:100000)
+```
+
+This is where the `for` loop will come in handy. It will indeed help us accomplish that. 
+
+```{r eval=FALSE}
+for (x in seq(1:10)){
+  print(x)
+}
+```
+
+All the `for` loop involves the following structure 
+
+```
+for (x in vector){
+
+  task 1 to be repeated ....
+  task 2 to be repeated ....
+  task 3 to be repeated ....
+
+  task K to be repeated ....
+
+}
+
+```
+
+## More examples
+
+These examples are adapted from Jones et al. (2014) **Introduction to Scientific Programming and Simulation Using R**. 
+
+### Summing a vector
+
+```{r}
+x <- seq(1,10, by=2)
+x
+```
+
+Manually calculate this number using  the following code
+
+```{r}
+1 + 3 + 5 + 7 + 9
+```
+
+To make calculation of the sum a repeatable process, we can realize it is equivalent to 
+
+```{r}
+sum <- 0
+sum <- 1 + sum  
+sum <- 3 + sum
+sum <- 5 + sum 
+sum <- 7 + sum 
+sum <- 9 + sum 
+sum
+```
+
+Step 1. Identify the common code
+
+```
+sum <- 0
+sum <- XX + sum  
+sum <- XX + sum
+sum <- XX + sum 
+sum <- XX + sum 
+sum <- XX + sum 
+sum
+```
+
+Step 2. Put it in a loop structure first
+
+
+```
+sum <- 0
+
+for (____ in _____){
+
+  sum <- XX + sum  
+
+}
+
+sum
+```
+
+Step 3. Give it a variable name for the place holder
+
+```
+sum <- 0
+
+for (XX in _____){
+
+  sum <- XX + sum  
+
+}
+
+sum
+```
+
+Step 4. What is this variable from?
+
+```{r}
+sum <- 0
+
+for (XX in x){
+
+  sum <- XX + sum  
+
+}
+
+sum
+```
+
+### Quiz 
+
+Suppose that we would like to calculate $n$ factorial: $n!$. 
+
+### Pension Value
+
+Suppose that we would like to calculate or forecast the value of a pension fund under compounding interest. 
+
+```{r}
+# Information
+
+r <- 0.11                 # Annual interest rate
+term <- 10                # Forecast duration (in years)
+period <- 1/12            # Time between payments (in years), in other words, monthly payment
+payments <- 100           # Amount depoisted each period (month)
+```
+
+
+
+Lets clear the workspace first.
+```{r}
+rm(list=ls())
+```
+
+How many payments does your client need to make?
+
+```{r}
+n <- floor(term/period)
+n
+```
+
+Lets manually calculate this for a few periods to identify the common code
+
+```{r}
+pension <- vector("numeric", 121)
+pension[1] <- 0
+pension[2] <- pension[1]*(1+r*period) + 100
+pension[3] <- pension[2]*(1+r*period) + 100
+pension[4] <- pension[3]*(1+r*period) + 100
+```
+
+We can see that except the first one, everything else follows the same structure
+
+```{r eval=FALSE}
+```
+
+Step 2. Put it in a loop structure first
+
+
+```
+pension <- vector("numeric", 121)
+pension[1] <- 0
+
+for (____ in _____){
+
+  pension[XXX] <- pension[XX]*(1+r*period) + payments
+
+}
+
+pension
+```
+
+Note that we have two variables that we need to fill. It is useful to know that `XXX` is always `XX+1`. 
+
+Step 2. Put it in a loop structure first
+
+
+```
+pension <- vector("numeric", 121)
+pension[1] <- 0
+
+for (XX in _____){
+
+  pension[XX+1] <- pension[XX]*(1+r*period) + payments
+
+}
+
+pension
+```
+
+
+Step 3. What is the variable `XX`?
+
+
+```{r}
+pension <- vector("numeric", 121)
+pension[1] <- 0
+
+for (XX in 1:n){
+
+  pension[XX+1] <- pension[XX]*(1+r*period) + payments
+
+}
+
+pension
+max(pension)
+```
+
+
+Step 4. Lets show our client the growth of the value of a pension fund. 
+
+```{r}
+plot(0:120, pension)
+```
+

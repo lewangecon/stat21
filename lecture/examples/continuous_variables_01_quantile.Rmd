@@ -1,0 +1,48 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is an R Mardown Notebook that will walk you through ann important concept for **continuous variables**: quantile.
+
+## Quantiles
+
+Lets simulate the data
+
+
+```{r}
+x<-c(6,7,6,3,10,3,2,1,10,7)
+```
+
+
+
+
+We can calculate the median
+
+```{r}
+median(x)
+```
+
+We calculate the $40^{th}$ percentile
+```{r}
+quantile(x,.4)
+```
+
+But this is really not the type of definition.
+```{r}
+quantile(x,.8, type = 1)
+```
+
+```{r}
+quantile(x, probs = seq(0,1,0.01)    ,type = 1)
+plot(seq(0,1,0.01), quantile(x, probs = seq(0,1,0.01)    ,type = 1))
+```
+
