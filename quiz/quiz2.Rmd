@@ -1,0 +1,89 @@
+---
+title: "Quiz 2"
+author: "Le Wang"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+
+1. Generate a vector called `x` that is a sequence number from $1$ to $9$.
+$$
+x = (1, 2, 3, 4, 5, 6, 7, 8, 9)
+$$
+
+```{r}
+x <- 
+```
+
+2. Select and show what is the 3rd element of the vector $x$. 
+
+```{r}
+
+```
+
+3. Select the numbers greater than $3$ in the vector $x$. Lets do it in two steps to help you understand the process
+
+```{r}
+# Step 1. Generate a vector of the same length, but with logical values (i.e., TRUE or FALSE) by 
+# evaluating whether or not each element of x is greater than 3. Call this vector select
+
+select <- 
+select
+  
+# Step 2.   Put this vector with logical values to select the sub-vector of x. Call it subvector
+
+subvector <- 
+```
+
+4. Using $x$ to construct the following matrix
+$$
+\begin{pmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{pmatrix}
+$$
+
+
+```{r}
+matrix <- 
+```
+
+
+5. Give names to your matrix. 
+
+$$
+\begin{pmatrix}
+ & \text{First} &  \text{Second} &  \text{Third} \\
+\text{Katy} & 1 & 2 & 3 \\
+\text{Hunter} & 4 & 5 & 6 \\
+\text{Carson} & 7 & 8 & 9
+\end{pmatrix}
+$$
+
+6. Use `R` to tell you what the respective dimensions of $x$ and $matrix$. 
+
+```{r}
+# dimension of x
+
+
+# dimension of matrix
+
+
+```
+
+7. Create a data frame that looks like
+
+$$
+\begin{pmatrix}
+ & \text{First} &  \text{Second} &  \text{Third} \\
+ & 1 & 2 & 3 \\
+ & 4 & 5 & 6 \\
+\end{pmatrix}
+$$
+
+8. Create a tibble dataset that looks like the one above
+
