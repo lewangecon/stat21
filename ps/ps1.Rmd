@@ -1,0 +1,61 @@
+---
+title: 'Homework #1'
+author: "Le Wang"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 0 (Optional)
+
+To test whether you have learned how to use R Markdown, please also complete the R markdown file called `ps1_datacamp.Rmd` available in the `ps` folder on Github. 
+
+## Question 1
+
+Debates about many important issues involve references to statistics. Many statistics that you hear from the media may or may not be correct. As an economist, however, you should be able to obtain some of such relevant data, conduct your own analysis, and evaluate some of the claims on your own. Below is a short list of the statistics regarding economic conditions under President Obama.
+
+1. Lowest labor forceparticipation rate since 1970s
+2. Almost 95M Americans out of the labor force
+3. Worst economic recovery since 1940s
+4. Lowest home ownership rate in 51 years
+5. Almost 13M more Americans on food stamps (Note that food stamps are called SNAP now)
+
+Pick **two** variables and try your best to find and download the data corresponding using the `quantmod()` package (try read the help file yourself). 
+
+But here let me give you an example first. Suppose that you are intersted in **Civilian Labor Force Participation Rate**. Google "fred lowest labor force participation". You will be led to the website <https://fred.stlouisfed.org/series/CIVPART>. The last part of the web address is the name of the data for labor force participation rates. And you can obtain by typing the following command 
+
+```{r, message=FALSE}
+library(quantmod)
+getSymbols('CIVPART',src='FRED')
+```
+
+Plot the graph for each variable and evaluate these claims. Also, present them in a coherent way to show your own view of economic conditions under President Obama. 
+
+(**Optional**) You could also repeat these exericses for the Trump's administration.
+
+Answer these questions using a R Markdown file.
+
+
+
+## Question 2. [Learn How to Conduct Preliminary Analysis of Time Series Data] 
+
+Several years ago, the White House published a report on the trend of male labor force participation. See report [here](https://www.whitehouse.gov/sites/default/files/page/files/20160620_cea_primeage_male_lfp.pdf). 
+
+> The share of men between the ages of 25 and 54 either working or actively seeking work has been falling for more than 60 years. The decline in participation has been roughly constant over much of this time horizon. As Figure 1 shows, participation among prime-age men peaked in 1954, declined only slightly until the mid-1960s, but then began to decline in earnest in the decade between 1965 and 1975, when the share in the labor force fell from 96.7 percent to 94.2 percent. Since then, participation has fallen persistently, with sharper declines in recessionary periods, such as the early 1990s, that were not fully reversed in the subsequent expansion periods. Since 1965, the prime-age male labor force participation rate has fallen by an average of 0.16 percentage point each year, totaling an 8.3 percentage-point decline as of May 2016
+
+
+Pretend that you are a government official who is going to write a separate report on women to date. 
+
+1. Obtain the seasonally adjusted female labor force participation from St. Louis Fed's website.
+
+2. Plot the time series. 
+
+3. Summarize the patterns and describe its evolution over time using similar language as the one for men above. 
+
+4. Examining the time series plot, which component(s) of the variable are more distinct?
+
+
+
+

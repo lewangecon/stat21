@@ -1,0 +1,157 @@
+---
+title: "Lab1"
+author: "STUDENT NAME"
+date: "DATE"
+output: html_document
+linkcolor: blue
+---
+
+Here's your chance to demonstrate that you can integrate the topics and skills you learned through the Data Camp course into a literate report. Each section asks you to perform a few tasks based on each of the chapters in the Introduction to R course. 
+
+When the question asks you to perform a coding task, insert a code chunk after each question where you will write the code to answer that question. Knitting after each completed code chunk will help you to ensure your final product works as intended! That way if it breaks, you know exactly where the error lies. It's like saving after every answer!
+
+The first question is done for you as an example. 
+
+## Intro to basics
+
+0. Calculate 3 + 4. Put the answer in the grey area below and knit the document. 
+```{r}
+3+4
+```
+
+
+1. Calculate $2^5$, then knit the document. 
+```{r}
+
+```
+
+2. Assign a numeric value to the variable `my_apples`, assign a different numeric value to the variable `my_oranges`. Add these two together and assign the result to the variable `my_fruit`. Print the result of `my_fruit` to the report. 
+```{r}
+
+```
+
+3. Consider the following code below. What type of data is `a`? That is, what is it's `class`? 
+```{r}
+a <- "green"
+```
+
+
+4. A variable that classified as `logical` can hold only what two values? These are also called Boolean variables. 
+
+
+5. Knit this document. 
+
+## Vectors
+
+Data Camp took you through a tour of Vegas data. Let's recreate and play around with a week at the tables. 
+
+1. Create three vectors (`weekday`, `poker`, `roulette`) to describe the following outcome. 
+
+* `weekday`: The 5 weekdays.
+* `poker`: 
+    - On Monday you won $140
+    - Tuesday you lost $50
+    - Wednesday you won $20
+    - Thursday you lost $120
+    - Friday you won $240
+* `roulette`:
+    - On Monday you lost $24
+    - Tuesday you lost $50
+    - Wednesday you won $100
+    - Thursday you lost $350
+    - Friday you won $10
+
+```{r}
+
+```
+
+2. How much money did you gain/loose overall? What game did you do better on? 
+```{r}
+
+```
+
+## Matrix
+
+Click the green play button in the top right corner of this code chunk to run all code in that chunk. This will create a matrix containing the box ofice numbers for all current Star Wars movies. 
+
+```{r}
+domestic <- c(474.544, 310.676, 380.270, 460.998, 290.271, 309.205, 936.662, 321.282)
+worldwide <- c(1027.044, 656.695, 848.998, 786.598, 534.171, 572.705, 2058.662, 635.282)
+star_wars_matrix <- matrix(c(domestic, worldwide), ncol=2, byrow=FALSE)
+rownames(star_wars_matrix) <- c("phantom_menace", "attack_clones", "reveng_sith", "new_hope", "empire_strikes", "return_jedi", "force_awakens", "last_jedi")
+colnames(star_wars_matrix) <- c("US", "non-US")
+```
+
+1. Print out this matrix and take a look at it. 
+```{r}
+
+```
+
+
+2. Select the rows for the second trilogy released (Episodes I-III). This is also referred to as subsetting.
+```{r}
+
+```
+
+3. Use `colSums()` on your selection above to find out how much this trilogy made in total. 
+
+```{r}
+
+```
+
+4. Do the same calculation for the first trilogy (Episodes IV-VI), and 2 released so far of the most recent trilogy (Episodes VII & VIII) 
+
+```{r}
+
+```
+
+
+
+## Data Frames
+In the section above, all that data was contained in separate vectors. Let's combine them into a `data.frame` and explore. Data frames are a more common way of storing data in R. 
+
+Use the following code to create a data frame out of the vegas data. The code chunk has already been written for you, you just need to remove the `eval=FALSE` portion so that it will evaluate. 
+```{r, eval=FALSE}
+vegas <- data.frame(day = weekday, poker = poker, roulette = roulette)
+```
+
+1. Print out the `vegas` data set in it's entirety
+```{r}
+
+```
+
+> Knit now. Did the vegas data set show up in your output? 
+> If not, did you remove `eval=FALSE` from your code chunk options? 
+
+
+2. Print out the records for just Tuesday and Thursday using bracket notation
+and indices `[,]`. 
+```{r}
+
+```
+
+3. Use dollar sign notation to print just the poker variable: (`vegas$poker`).
+```{r}
+
+```
+
+
+3. Print out the records for Wednesday only, using a logical statement such
+as `day == "Wed"` to identify the row of interest. 
+```{r}
+
+```
+
+
+4. Create a new variable called `total` that adds the daily totals for each
+game together. Print the full data set again.
+```{r}
+
+```
+
+5. Use this new total vector to subset the data frame now to only include days
+where there was a positive total. Store this result as a new object called 
+`win_days`, and print this new object to the screen. 
+```{r}
+
+```
