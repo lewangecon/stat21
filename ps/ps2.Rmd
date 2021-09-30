@@ -1,0 +1,118 @@
+---
+title: 'Homework #2'
+author: "Le Wang"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1. [Learn How to Use simple forecasting methods] 
+
+Use data on the female labor force participation rates from the pre-Trump period and obtain forecasts for the Trump period before the pandemic using the following methods and compare them to the true values.
+
+  1. Average Method
+  2. Naive Method
+  3. Seasonal Naive Method
+  4. Drift Method
+  5. Naive Drift Method (simply use the last period change as your prediction)
+  
+What happens if you use your methods to predict the current situation?
+
+
+## Question 2. [Learn How to Use a Multiplicative Model to Decompose Time Series]
+
+In class we illustrate how to use the classical decomposition method to isolate different components in time series. The default is an **additive** model. 
+
+  1. Obtain unemployment rates **without** sesonality adjustments. 
+  2. Use a mulitiplicative model to decompose this variable, and plot the results.
+  3. Use the decomposition results, generate and plot a new variable that is free of the random component. **Hint:** Note that in case of multiplicative models, the answer is slightly different from the one that we discussed in class. 
+  4. Also use the STL method to decompose the time series.
+  
+  
+
+
+\bigskip
+
+
+**Question 3: [Sample Space, Events, and Naive Probability]**
+
+For the first question, it is still possible to use the pencil-paper approach to obtain the results. Now let's illustrate the power of using a computer. We will roll six dices in the following experiment. Answer the following questions for this experiment. 
+
+1. Using `R` to generate the sample space for rolling six dices. Show 10 outcomes from the sample space. 
+
+2. Using `R` to generate the event when the sum of six dices is greater than 30. Show the outcomes in this event. 
+
+3. Using `R` and the naive definition of probability to calculate the probability of the event in 2. 
+
+\bigskip
+
+
+**Question 4: [Counting and Sample Space]**
+
+There are 1000 fans on the wait list for the OU-Texas game tickets, but there are only 100 tickets left. The OU ticket office determines who will get a ticket through lottery. What is the likelidhood that both my wife and I would win the lottery? Use `R` to answer each of the following question. 
+
+1. How many possible combinations of the people who would win the lottery?
+
+2. How many possible combinations that my wife and I would win the lottery?
+
+3. What is the probability that both my wife and I would win the lottery?
+
+
+\bigskip
+
+
+**Question 5: [Sample Space, Events, and Naive Probability: Playing Craps] (Optional)**
+
+We will roll two dices. Answer the following questions for this experiment. 
+
+1. What are the possible outcomes for this experiment? Use `R` to generate the sample space for this experiment.
+
+2. Use `R` to generate the event when the sum of two dice equal to seven. Show the outcomes in this event. 
+
+3. Use `R` and the naive definition of probability to calculate the probability of the event in 2.
+
+4. Repeat 2-3. for the sum equal to five, six, eight, and nine. You just need to change your code in 2 to do this. It is a tedious process, but there are two reasons why I ask you to do it. First, I would like you to comment on the pattern that you see. Later we will use Monte Carlo simulation to approximate this pattern as well. Second, I'd like you to experience the tedious process so that later we will learn how to automate this tedious process in `R`.
+
+\bigskip
+
+**Question 6: [Counting, Sample Space and Naive Probability: The Birthday Problem Redux] (Optional)**
+
+Many of you probably have seen this problem in your undergrad statistics course. And now lets see if we could solve it in `R`. 
+
+\bigskip
+
+
+Suppose that there are $N$ people together at a party. What is the probability of at least one pair of attendants with the same birthday? This problem tests your understanding of naive probability, some properties of probability (derived from the three axioms discussed in class), and counting techniques. Let me walk you through this. 
+
+We will ignore leap years and assume that there are only 365 days in a year. We will also assume that births are equally distributed over the course of a year. Let's first define the event $A$
+$$
+A = \{ \text{there is at least one match} \}
+$$
+We are interested in $\mathbb{P}[A]$
+
+1. What is the sample space for this experiment? **Hint:** Note that you have $N$ people, and every one of them have 365 possibilities for his/her birthday. 
+
+2. What are the possible combinations for no match at all? **Hint:** You can think of this as a sequential experiment (someone is waiting at the party door to make sure that nobody with the same birthday as the previous person would come in). In other words, there are 365 possibilities for the first person, 364 possibilities for the second and so on.
+
+3. What is the probability of the occurrence of a no-match party? **Hint:** Use the naive definition probability
+
+4. What is the probability of the occurrence of event $A$? **Hint:** Use the property for probability for a complement of a set. 
+
+
+## Question 7. [Analyzing the Covid 19 situation] (Optional)
+
+I thank Dr. Tyler Ransom for emailing me his example. Download the `COVID19` package and 
+
+1. See if you can figure out how to obtain data on US COVID-19 deaths by reading help files or goolge examples. I would like you to gain more experience of finding and learning new packages. 
+
+```{r, eval=FALSE}
+data <- _____(c("US"))
+```
+
+2. Generate a new variable called `new_deaths` since the data come in cumulative format.
+
+3. Plot the time series and observe the patterns. 
+
+
